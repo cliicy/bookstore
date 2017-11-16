@@ -1,6 +1,6 @@
 package mypack;
 
-public class BookDetails implements Comparable {
+public class BookDetails implements Comparable<BookDetails> {
 	private String bookId = null;
 	private String title = null;
 	private String name = null;
@@ -8,6 +8,7 @@ public class BookDetails implements Comparable {
 	private int year=0;
 	private String description=null;
 	private int saleAmount;
+	
 	
 	public BookDetails(String bookId, String name, String title, float price,
 			int year,String description, int saleAmount) {
@@ -50,9 +51,16 @@ public class BookDetails implements Comparable {
 		return this.saleAmount;
 	}
 	
+/*	
 	public int compareTo(Object o) {
 		BookDetails n=(BookDetails)o;
 		int lastCmp = title.compareTo(n.title);
 		return (lastCmp);
 	}
+*/	
+    public int compareTo(BookDetails o) {
+		BookDetails n=(BookDetails)o;
+		int lastCmp = title.compareTo(n.title);
+		return (lastCmp);
+    }
 }

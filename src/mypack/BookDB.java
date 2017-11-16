@@ -5,6 +5,7 @@ import javax.sql.*;
 import java.util.*;
 
 public class BookDB {
+	
 	private String dbUrl = "jdbc:mysql://localhost:3306/BookDB";
 	private String dbUser="dbuser";
 	private String dbPwd="1234";
@@ -19,7 +20,7 @@ public class BookDB {
 	
 	public void closeConnection(Connection con){
 		try {
-			if(con!=nnull) con.close();
+			if(con!=null) con.close();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -64,15 +65,15 @@ public class BookDB {
 	}
 	
 	public Collection getBooks() throws Exception{
-		Connecttion con=null;
+		Connection con=null;
 		PreparedStatement prepStmt=null;
 		ResultSet rs = null;
-		ArrayList books=new ArrayList();
+		ArrayList<BookDetails> books=new ArrayList<BookDetails>();
 		try {
 			con=getConnection();
 			String selectStatement = "select *" + "from BOOKS";
-			prepStmt = con.PrepareStatement(selectStatement);
-			rs=PrepStmt.executeQuery();
+			prepStmt = con.prepareStatement(selectStatement);
+			rs=prepStmt.executeQuery();
 			
 			while (rs.next()) {
 				BookDetails bd = new BookDetails(rs.getString(1),rs.getString(2),
@@ -80,17 +81,18 @@ public class BookDB {
 				books.add(bd);
 			}
 		}finally{
-			closeRequestSet(rs);
+			closeResultSet(rs);
 			closePrepStmt(prepStmt);
 			closeConnection(con);
 		}
-		Collections.sort(con);
+		 
+		Collections.sort(books);
 		return books;
 	}
 	
 	public BookDetails getBookDetails(String bookID)throws Exception{
 		Connection con=null;
-		PreparedStatement preStmt = null;
+		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
 		
 		try {
@@ -161,10 +163,10 @@ public class BookDB {
 					prepStmt.executeUpdate();
 					prepStmt.close();
 				}
-			}finally {
-				closeRequestSet(rs);
-				closePrepStmt(prepStmt);
 			}
+		}finally {
+			closeResultSet(rs);
+			closePrepStmt(prepStmt);
 		}
 	}
 }
