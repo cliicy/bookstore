@@ -13,7 +13,7 @@
 <body>
 <%
 try{
-	Connect con;
+	Connection con;
 	Statement stmt;
 	ResultSet rs;
 	Class.forName("com.mysql.jdbc.Driver");

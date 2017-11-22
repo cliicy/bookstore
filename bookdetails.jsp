@@ -6,13 +6,22 @@
 <body>
 <center>
 <p>
-<!-- <b><a href="<%=request.getContextPath() %>/catalog.jsp">all the books</a></b> -->
-<!-- <form action=bookdetails.jsp method="post"> -->
-<b>The book's Name: <%request. %></b>
-<b>the serial number of Book:</b>
-<input type="text" size="20" name="bookID" value="" ><br><br>
-<center><input type=submit value="require"></center>
- </form>
+<b><font size="8">The book's Name: <%request.getBookDetails().getTitle() %></b><br>
+<b>The author of  Book: <%request.getBookDetails().getName() %></b><br>
+<b>The price of  Book: <%request.getBookDetails().getPrice() %></b><br>
+<b>The comments of  Book: <%request.getBookDetails().getDescription() %></b><br>
+<b>The sold number of  Book: <%request.getBookDetails().getSaleAmount() %></b><br>
+<form action=bookdetails.jsp method="post">
+<table>
+<tr>
+<td>
+<b><a href="<%=request.getContextPath() %>/catalog.jsp">Adding to the cart</a></b>
+<b><a href="<%=request.getContextPath() %>/catalog.jsp">Continuing to buy</a></b>
+</td>
+</tr>
+</table>
+</form>
+</p>
 </center>
 </body>
 </html>>
