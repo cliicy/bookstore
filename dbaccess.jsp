@@ -14,8 +14,9 @@
 <%
 try{
 	Connection con;
-	Statement stmt;
-	ResultSet rs;
+	Statement stmt=null;
+	
+    
 	Class.forName("com.mysql.jdbc.Driver");
 	DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 	String dbUrl="jdbc:mysql://localhost:3306/BookDB?useUnicode=true&characterEncoding=GB2312";
@@ -23,26 +24,33 @@ try{
 	String dbPwd="1234";
 	con=java.sql.DriverManager.getConnection(dbUrl,dbUser,dbPwd);
 	stmt=con.createStatement();
-	stmt.executeUpdate("insert into BOOKS (ID,NAME,TITLE,PRICE) value('999','Tom','Tomcat Bible',44.5)");
-	rs=smtm.executeQuery("select ID,NAME,TITLE,PRICE from BOOKS");
+	/*
+	stmt.executeUpdate("insert into BOOKS (ID,NAME,TITLE,PRICE) value('989','Tom','Tomcat Bible',44.5)");
 	
-	out.println("<table border=1 width=400>");
+	String query = "select ID, NAME, TITLE, " +
+                   "PRICE " +
+                   "from " + "BOOKS";
+	ResultSet rs=stmt.executeQuery(query);
+	*/
+	ResultSet rs=stmt.executeQuery("select ID,NAME,TITLE,PRICE from BOOKS");
+	out.println("<table border=1 width=800>");
 	while (rs.next()) {
 		String col1=rs.getString(1);
 		String col2=rs.getString(2);
 		String col3=rs.getString(3);
 		float col4=rs.getFloat(4);
 		
-		System.out.println("<tr><td>"+col1+"</td><td>"+col2+"</td><td>"
+		out.println("<tr><td>"+col1+"</td><td>"+col2+"</td><td>"
 		+col3+"</td><td>"+col4+"</td><tr>");
 	}
-	System.out.println("</table>");
+	out.println("</table>");
 	
-	stmt.executeUpdate("delete from BOOKS where ID='999'");
+	//stmt.executeUpdate("delete from BOOKS where ID='989'");
 	
 	rs.close();
 	stmt.close();
 	con.close();
+	//System.out.println("<p>"+"aaaa"+"</p>");
 }catch(Exception e) {out.println(e.getMessage());}
 %>
 </body>
